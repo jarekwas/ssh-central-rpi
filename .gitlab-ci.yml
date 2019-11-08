@@ -1,4 +1,4 @@
-image: rbi-arduino-cicd
+image: greetingsfrompoland/ssh-rbi-arduino-cicd
 
 stages:
 - deploy
