@@ -1,0 +1,21 @@
+version: '2.0'
+networks:
+  domoticz:
+
+services:
+
+  domoticz:
+    image: joshuacox/mkdomoticz:arm
+    restart: unless-stopped
+    ports:
+      - 80:8080
+    volumes:
+      - domoticz_data:/config
+    networks:
+      - domoticz
+    privileged: true
+    devices:
+      - "/dev/ttyACM0:/dev/ttyACM0"
+
+volumes:
+  domoticz_data:

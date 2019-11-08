@@ -1,0 +1,47 @@
+image: rbi-arduino-cicd
+
+stages:
+- deploy
+- maintenance
+
+deploy dockers: 
+  except:
+    variables:
+      - $APP_COMMIT_SHA
+      - $BACKUP
+  script:
+    - docker-compose -p domoticz down
+    - docker-compose -p domoticz up -d
+  stage: deploy
+
+deploy arduino and dockers:
+  only:
+    variables:
+      - $APP_COMMIT_SHA
+  script:
+    - sh ci/depolyArduinoAndDockers.sh
+  stage: deploy
+
+backup domoticz db:
+  rules:
+    - if: '$BACKUP'
+      when: always
+    - when: manual
+  script:
+    - echo "TODO"
+  stage: maintenance
+  allow_failure: true
+
+restore domoticz db backup:
+  when: manual
+  script:
+    - echo "TODO"
+  stage: maintenance
+  allow_failure: true
+
+check status:
+  script:
+    - echo "TODO"
+  stage: maintenance
+  
+  
