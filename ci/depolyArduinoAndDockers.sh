@@ -6,6 +6,7 @@ docker-compose -p domoticz down
 git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@${ENV_DEPLOY_MYSENSORS_GATEWAY_REPO_URL} app
 cd app
 git checkout $APP_COMMIT_SHA
+git submodule update --init
 arduino-cli lib install "MySensors"
 arduino-cli lib install "Bounce2"
 arduino-cli compile --fqbn arduino:avr:mega App
